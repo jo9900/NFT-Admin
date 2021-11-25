@@ -1,0 +1,33 @@
+const errorCode = {
+  zh: {
+    10000: 'success',
+    9999: '系统发生未知异常',
+    10001: '账号未创建商城',
+    40001: '账号在其它地方登录',
+    40401: '未登录',
+    40403: '权限不足',
+    40404: '用户未找到',
+    50001: '铸造后的商品不可编辑',
+    50002: '铸造后的商品才能上架',
+    50404: '商品未找到',
+    401: '请重新登录（401 Unauthorized）',
+    timeout: '网络超时',
+    other: '网络异常',
+  },
+  en: {
+    10000: 'success',
+    9999: 'Unknown system anomalies',
+    10001: 'The account has not created a store',
+    40001: 'The account logs in somewhere else',
+    40401: 'Not logged in',
+    40403: 'Insufficient permissions',
+    40404: 'User not found',
+    50001: 'Minted goods are not editable',
+    50002: 'Only after being minted can goods be put on the shelves',
+    50404: 'Goods not found',
+    401: 'Please log in again (401 Unauthorized)',
+    timeout: 'Network timeout',
+    other: 'Network anomalies',
+  },
+}
+export default errorCode
