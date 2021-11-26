@@ -2,14 +2,14 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        should be NFT商场名称
+        {{ mallName }}
         <v-spacer></v-spacer>
-        <v-btn @click="onConnectAndLogin()" v-if="address">连接钱包</v-btn>
+        <v-btn @click="onConnectAndLogin()" v-if="!address">连接钱包</v-btn>
         <div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-chip color="primary" dark v-bind="attrs" v-on="on">
-                address
+                {{ address }}
               </v-chip>
             </template>
             <v-list>
@@ -64,6 +64,7 @@
 <script>
 import { maskingAddress } from '@/utils'
 import Mixins from "../mixins";
+import {mallName} from "../config";
 
 export default {
   name: 'Index',
@@ -71,6 +72,7 @@ export default {
   data() {
     return {
       address: '',
+      mallName: mallName,
       isShowMenu: false,
       linkList: [
         {
@@ -113,7 +115,7 @@ export default {
     })
   },
   watch: {
-    'store.state.web3Modal.account': {
+    '$store.state.web3Modal.account': {
       handler(cur) {
         if (cur) {
           this.address = maskingAddress(this.$store.getters.getAccount, 2)

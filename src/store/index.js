@@ -53,11 +53,13 @@ export default new Vuex.Store({
       localStorage.removeItem('uInfo')
       dispatch('resetApp')
     },
-    async login({ state }) {
-      const { account } = state.web3Modal
-      await userLogin({ walletAddress: account }).then((res) => {
+    login({ state }) {
+      // const { account } = state.web3Modal
+      const account = '111'
+      userLogin({ walletAddress: account }).then((res) => {
         localStorage.setItem('uInfo', JSON.stringify(res.data))
         localStorage.setItem('uAuthorization', res.data.token)
+        router.push('/')
       })
     },
   },

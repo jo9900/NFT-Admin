@@ -1,91 +1,95 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Layout from "../layout/Index.vue";
-import Login from "@/views/Login.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Layout from '../layout/Index.vue'
+import Login from '@/views/Login.vue'
 
-Vue.use(VueRouter);
-const originalPush = VueRouter.prototype.push;
+Vue.use(VueRouter)
+const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err);
-};
+  return originalPush.call(this, location).catch((err) => err)
+}
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 const routes = [
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: Login,
   },
   {
-    path: "/",
+    path: '/',
     redirect: '/goods',
     meta: {
-      // isAuthenticated: true,
+      isAuthenticated: true,
     },
-    name: "layout",
+    name: 'dashboard',
     component: Layout,
     children: [
       {
-        path: 'goods',
+        path: '/goods',
         name: 'goods',
         meta: {
-          // isAuthenticated: true,
+          isAuthenticated: true,
         },
         component: () =>
-          import(/* webpackChunkName: "goods" */ "../views/Goods.vue"),
+          import(/* webpackChunkName: "goods" */ '../views/Goods.vue'),
       },
       {
-        path: 'detail',
+        path: '/detail/:id',
         name: 'detail',
         meta: {
-          // isAuthenticated: true,
+          isAuthenticated: true,
         },
         component: () =>
-          import(/* webpackChunkName: "goods" */ "../views/GoodsDetail.vue"),
+          import(/* webpackChunkName: "goods" */ '../views/GoodsDetail.vue'),
       },
       {
-        path: 'orders',
+        path: '/orders',
         name: 'orders',
         meta: {
-          // isAuthenticated: true,
+          isAuthenticated: true,
         },
         component: () =>
-          import(/* webpackChunkName: "orders" */ "../views/Orders.vue"),
+          import(/* webpackChunkName: "orders" */ '../views/Orders.vue'),
       },
       {
-        path: 'fee',
+        path: '/fee',
         name: 'fee',
         meta: {
-          // isAuthenticated: true,
+          isAuthenticated: true,
         },
         component: () =>
-          import(/* webpackChunkName: "fee" */ "../views/Fee.vue"),
+          import(/* webpackChunkName: "fee" */ '../views/Fee.vue'),
       },
       {
-        path: 'banner',
+        path: '/banner',
         name: 'banner',
         meta: {
-          // isAuthenticated: true,
+          isAuthenticated: true,
         },
         component: () =>
-          import(/* webpackChunkName: "banner" */ "../views/Banner.vue"),
+          import(/* webpackChunkName: "banner" */ '../views/Banner.vue'),
       },
-    ]
+    ],
   },
   {
-    path: "/test5080",
-    name: "test5080",
+    path: '/test5080',
+    name: 'test5080',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../demo.vue"),
+    component: () => import(/* webpackChunkName: "about" */ '../demo.vue'),
   },
-];
+  {
+    path: '/notfound',
+    name: 'notfound',
+    component: () => import('../views/NotFound.vue'),
+  },
+]
 
 const router = new VueRouter({
   routes,
-});
+})
 router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.isAuthenticated && !localStorage.getItem('account'))
     next({ name: 'login' })
@@ -98,4 +102,4 @@ router.afterEach((to, from) => {
     behavior: 'smooth',
   })
 })
-export default router;
+export default router

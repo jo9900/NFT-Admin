@@ -19,14 +19,17 @@
       </template>
 
       <template v-slot:item.apply_time="{ item }">
-        {{ formatGroundingState(item.groundingState) }}
+        <v-chip
+          :color="item.groundingState === 1 ? 'indigo' : 'success'"
+          outlined
+        >
+          {{ formatGroundingState(item.groundingState) }}
+        </v-chip>
       </template>
 
       <template v-slot:item._actions="{ item }">
         <v-btn text @click="toDetail(item)">查看</v-btn>
       </template>
-
-
     </v-data-table>
     <div class="text-center pt-2">
       <v-pagination
@@ -95,9 +98,9 @@ export default {
         })
     },
     toDetail(rowData) {
-      console.log( rowData );
-      this.$router.push('/detail')
-    }
+      console.log(rowData)
+      this.$router.push('/detail/' + rowData.id)
+    },
   },
 }
 </script>

@@ -19,7 +19,6 @@ const nftInstance = axios.create({
 })
 nftInstance.interceptors.request.use(
   (config) => {
-    console.log( config );
     const token = store.getters.getToken
     if (token) {
       config.headers.Authorization = token
@@ -47,7 +46,6 @@ nftInstance.interceptors.response.use(
     }
   },
   (error) => {
-    console.dir(error)
     if (error.response && error.response.status === 401) {
       store.dispatch('Message', {
         isShow: true,
@@ -67,7 +65,7 @@ nftInstance.interceptors.response.use(
         type: 'warning',
       })
     }
-    store.dispatch('logout')
+    // store.dispatch('logout')
     return Promise.reject(error)
   }
 )
