@@ -47,7 +47,7 @@
 
       <template v-slot:item.groundingState="{ item }">
         <v-chip
-          :color="item.groundingState === 1 ? 'indigo' : 'success'"
+          :color="item.groundingState === 1 ? 'indigo' : 'grey'"
           outlined
         >
           {{ item.groundingState | formatGroundingState }}
@@ -137,6 +137,4 @@ export default {
 <style scoped lang="stylus">
 .w180
   max-width: 180px
-.show-btns
-  color: rgba(255, 255, 255, 1) !important;
 </style>

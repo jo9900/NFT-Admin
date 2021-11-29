@@ -24,3 +24,12 @@ export const formatOrderState = (state)=> {
   }
   return map[state] || ''
 }
+
+export const formatBannerState = (state)=> {
+  //  启禁用状态 0 禁用 1 启用
+  let map = {
+    0: '禁用',
+    1: '启用',
+  }
+  return map[state] || ''
+}

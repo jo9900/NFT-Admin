@@ -38,14 +38,6 @@
                     <v-list-item-title> {{ item.text }} </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-
-                <v-divider class="my-2"></v-divider>
-
-                <v-list-item link color="grey lighten-4">
-                  <v-list-item-content>
-                    <v-list-item-title> Refresh </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
               </v-list>
             </v-sheet>
           </v-col>
@@ -56,6 +48,7 @@
               max-height="85vh"
               rounded="lg"
               style="overflow: hidden"
+              class="pa-2"
             >
               <router-view />
             </v-sheet>

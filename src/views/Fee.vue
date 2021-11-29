@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center" align="center" class="mt-10">
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="5" lg="4">
         <v-form
           ref="form"
           v-model="valid"
@@ -42,7 +42,7 @@
             <v-btn
               v-else
               outlined
-              color="primary"
+              color="indigo"
               large
               class="mt-10"
               block

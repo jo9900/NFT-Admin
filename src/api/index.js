@@ -27,3 +27,7 @@ export const getFee = (params = {}) => {
 export const updateFee = (params = {}) => {
   return post(base + '/mallInfo/update', params)
 }
+
+export const getBannerList = (params = {}) => {
+  return post(_mallCode + '/focusMap/listPage', params)
+}

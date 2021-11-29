@@ -14,6 +14,18 @@
       :loading="isLoading"
       @page-count="pageCount = $event"
     >
+      <template v-slot:item.goodsName="{ item }">
+        <div class="text-truncate w180">
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-chip v-bind="attrs" v-on="on">
+                {{ item.goodsName }}
+              </v-chip>
+            </template>
+            <span>{{ item.goodsName }}</span>
+          </v-tooltip>
+        </div>
+      </template>
       <template v-slot:item.goodsType="{ item }">
         {{ item.goodsType | formatGoodsType }}
       </template>
@@ -75,16 +87,17 @@ export default {
           align: 'start',
           sortable: false,
           value: 'orderNo',
+          width: '130'
         },
         { text: '作品名称', value: 'goodsName' },
-        { text: '作品类型', value: 'goodsType' },
+        { text: '作品类型', value: 'goodsType', width: '130' },
         { text: '作品图像', value: 'goodsUrl' },
-        { text: `成交价（${unit}）`, value: 'orderDPrice' },
-        { text: '挂售者', value: 'orderSeller' },
-        { text: '买入者', value: 'orderBuyer' },
-        { text: '订单状态', value: 'numState' },
-        { text: '成交时间', value: 'transTime' },
-        { text: '操作', value: '_actions' },
+        { text: `成交价（${unit}）`, value: 'orderDPrice', align: 'right' },
+        { text: '挂售者', value: 'orderSellerName', width: '130' },
+        { text: '买入者', value: 'orderBuyerName', width: '130' },
+        { text: '订单状态', value: 'numState', width: '130' },
+        { text: '成交时间', value: 'transTime', width: '180' },
+        { text: '操作', value: '_actions', align: 'center' },
       ]
     },
   },
