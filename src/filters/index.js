@@ -28,8 +28,8 @@ export const formatOrderState = (state)=> {
 export const formatBannerState = (state)=> {
   //  启禁用状态 0 禁用 1 启用
   let map = {
-    0: '禁用',
-    1: '启用',
+    0: '已禁用',
+    1: '已启用',
   }
   return map[state] || ''
 }

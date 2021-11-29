@@ -45,16 +45,14 @@ instance.interceptors.response.use(
   },
   async (error) => {
     if (error.message.includes('timeout')) {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit("TOGGLE_SNACKBAR", {
         msg: formatError('timeout'),
-        type: 'warning',
+        bool: true
       })
     } else {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit("TOGGLE_SNACKBAR", {
         msg: formatError('other'),
-        type: 'warning',
+        bool: true
       })
     }
     return Promise.reject(error)

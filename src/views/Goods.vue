@@ -60,7 +60,6 @@
     </v-data-table>
     <div class="text-center pt-2">
       <v-pagination
-        circle
         v-model="page"
         color="primary"
         total-visible="8"

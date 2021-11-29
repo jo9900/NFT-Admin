@@ -31,3 +31,21 @@ export const updateFee = (params = {}) => {
 export const getBannerList = (params = {}) => {
   return post(_mallCode + '/focusMap/listPage', params)
 }
+
+export const triggerBannerState = (params = {}, id) => {
+  return post(_mallCode + '/focusMap/state/' + id, params)
+}
+
+export const addBanner = (params = {}) => {
+  return post(_mallCode + '/focusMap/add', params)
+}
+export const getRssUrl = (params) => {
+  return post('rss/mgt/v1/file/upload', params)
+}
+
+export const updateBanner = (params ={}, id) => {
+  return post(_mallCode + '/focusMap/updateById' + id, params)
+}
+export const getBannerData = (params ={}, id) => {
+  return get(_mallCode + '/focusMap/getById/' + id, params)
+}

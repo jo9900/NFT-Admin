@@ -35,10 +35,9 @@ nftInstance.interceptors.response.use(
   (response) => {
     const res = response.data
     if (res.code !== 10000) {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit('TOGGLE_SNACKBAR', {
         msg: formatError(res.code),
-        type: 'warning',
+        bool: true,
       })
       return Promise.reject(res)
     } else {
@@ -47,22 +46,19 @@ nftInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit('TOGGLE_SNACKBAR', {
         msg: formatError(401),
-        type: 'warning',
+        bool: true,
       })
     } else if (error.message.includes('timeout')) {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit('TOGGLE_SNACKBAR', {
         msg: formatError('timeout'),
-        type: 'warning',
+        bool: true,
       })
     } else {
-      store.dispatch('Message', {
-        isShow: true,
+      store.commit('TOGGLE_SNACKBAR', {
         msg: formatError('other'),
-        type: 'warning',
+        bool: true,
       })
     }
     // store.dispatch('logout')
