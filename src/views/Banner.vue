@@ -64,7 +64,11 @@
                   :color="transparent"
                   icon
                 >
-                  <v-icon :class="{ 'show-btns': hover }" :color="transparent">
+                  <v-icon
+                    :class="{ 'show-btns': hover }"
+                    :color="transparent"
+                    @click="showExpandMedia(item.focusMapUrl)"
+                  >
                     mdi-magnify-expand
                   </v-icon>
                 </v-btn>
@@ -130,6 +134,7 @@
                 :rules="rules.focusMapUrl"
                 contain
                 height="100"
+                @click="showExpandMedia(form.focusMapUrl)"
               ></v-img>
             </v-row>
 
@@ -374,6 +379,9 @@ export default {
       this.isEditing = false
       this.$refs.form.reset()
       this.form.focusMapUrl = ''
+    },
+    showExpandMedia(url) {
+      window.open(url, '_blank')
     },
   },
 }

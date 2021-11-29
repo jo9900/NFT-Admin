@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        {{ mallName }}
+        <span class="mall-name">{{ mallName }}</span>
         <v-spacer></v-spacer>
         <v-btn @click="onConnectAndLogin()" v-if="!address">连接钱包</v-btn>
         <div class="text-center">
@@ -49,7 +49,7 @@
               min-height="75vh"
               max-height="85vh"
               rounded="lg"
-              style="overflow: hidden"
+              style="overflow: hidden; position: relative"
               class="pa-2"
             >
               <router-view />
@@ -147,4 +147,6 @@ export default {
 #main
   background url("../assets/background.png") center center no-repeat
   background-size cover
+.mall-name
+  cursor default
 </style>

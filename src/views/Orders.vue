@@ -33,7 +33,12 @@
         <v-hover v-slot="{ hover }">
           <v-img :src="item.goodsUrl" width="30" contain>
             <div class="align-self-center">
-              <v-btn :class="{ 'show-btns': hover }" :color="transparent" icon>
+              <v-btn
+                :class="{ 'show-btns': hover }"
+                :color="transparent"
+                icon
+                @click="showExpandMedia(item.goodsUrl)"
+              >
                 <v-icon :class="{ 'show-btns': hover }" :color="transparent">
                   mdi-magnify-expand
                 </v-icon>
@@ -74,7 +79,6 @@ export default {
     list: [],
     isLoading: false,
     transparent: 'rgba(255, 255, 255, 0)',
-
   }),
   created() {
     this.init()
@@ -87,7 +91,7 @@ export default {
           align: 'start',
           sortable: false,
           value: 'orderNo',
-          width: '130'
+          width: '130',
         },
         { text: '作品名称', value: 'goodsName' },
         { text: '作品类型', value: 'goodsType', width: '130' },
@@ -124,6 +128,9 @@ export default {
     toScan(rowData) {
       console.log(rowData)
       window.open(scanHref + 'tx/' + rowData.transHash, '_blank')
+    },
+    showExpandMedia(url) {
+      window.open(url, '_blank')
     },
   },
 }

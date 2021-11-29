@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-breadcrumbs :items="nav" />
-    <v-card min-width="50vw" max-width="70vw">
+    <v-card min-width="50vw" max-width="70vw" flat class="pa-8">
       <v-row>
         <v-col cols="3">作品名称</v-col>
         <v-col cols="9">{{ nftData.goodsName }}</v-col>
@@ -12,7 +12,11 @@
       </v-row>
       <v-row>
         <v-col cols="3">作品图像</v-col>
-        <v-col cols="9">{{ nftData.goodsUrl }}</v-col>
+        <v-col cols="9">
+          <div @click="showExpandMedia(nftData.goodsUrl)">
+            <vMedia :mediaUrl="nftData.goodsUrl" class="media-wrap" />
+          </div>
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="3">描述</v-col>
@@ -28,15 +32,11 @@
       </v-row>
       <v-row>
         <v-col cols="3">创作者</v-col>
-        <v-col cols="9"
-          >{{ nftData.goodsAuthorName }} {{ nftData.goodsAuthor }}</v-col
-        >
+        <v-col cols="9">{{ nftData.goodsAuthorName }}</v-col>
       </v-row>
       <v-row>
         <v-col cols="3">拥有者</v-col>
-        <v-col cols="9"
-          >{{ nftData.goodsOwnName }} {{ nftData.goodsOwn }}</v-col
-        >
+        <v-col cols="9">{{ nftData.goodsOwnName }}</v-col>
       </v-row>
       <v-row>
         <v-col cols="3">首次挂售时间</v-col>
@@ -59,9 +59,10 @@
 <script>
 import { getGoodsDetail } from '../api'
 import { unit } from '../config'
-
+import vMedia from '@/components/Media'
 export default {
   name: 'GoodsDetail',
+  components: { vMedia },
   data: () => ({
     unit: unit,
     nftData: {
@@ -82,7 +83,7 @@ export default {
     },
   }),
   computed: {
-    nav(){
+    nav() {
       return [
         {
           text: '作品管理',
@@ -93,9 +94,9 @@ export default {
           text: this.nftData.goodsName,
           disabled: false,
           href: `/detail/${this.nftData.id}`,
-        }
+        },
       ]
-    }
+    },
   },
   created() {
     this.init()
@@ -105,14 +106,23 @@ export default {
       this.getData()
     },
     getData() {
-      console.log( this.$route );
+      console.log(this.$route)
       const id = this.$route.params.id
       getGoodsDetail({}, id).then((res) => {
         this.nftData = res.data
       })
     },
+    showExpandMedia(url) {
+      console.log(url)
+      window.open(url, '_blank')
+    },
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+.media-wrap
+  max-width: 100px;
+  max-height: 100px;
+  cursor pointer
+</style>

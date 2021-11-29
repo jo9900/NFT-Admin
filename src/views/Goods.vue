@@ -18,7 +18,7 @@
         <div class="text-truncate w180">
           <v-tooltip right>
             <template v-slot:activator="{ on, attrs }">
-              <v-chip v-bind="attrs" v-on="on">
+              <v-chip v-bind="attrs" v-on="on" @click="toDetail(item)">
                 {{ item.goodsName }}
               </v-chip>
             </template>
@@ -35,7 +35,12 @@
         <v-hover v-slot="{ hover }">
           <v-img :src="item.goodsUrl" width="30" contain>
             <div class="align-self-center">
-              <v-btn :class="{ 'show-btns': hover }" :color="transparent" icon>
+              <v-btn
+                :class="{ 'show-btns': hover }"
+                :color="transparent"
+                icon
+                @click="showExpandMedia(item.goodsUrl)"
+              >
                 <v-icon :class="{ 'show-btns': hover }" :color="transparent">
                   mdi-magnify-expand
                 </v-icon>
@@ -46,10 +51,7 @@
       </template>
 
       <template v-slot:item.groundingState="{ item }">
-        <v-chip
-          :color="item.groundingState === 1 ? 'indigo' : 'grey'"
-          outlined
-        >
+        <v-chip :color="item.groundingState === 1 ? 'indigo' : 'grey'" outlined>
           {{ item.groundingState | formatGroundingState }}
         </v-chip>
       </template>
@@ -66,22 +68,27 @@
         :length="pageCount"
       ></v-pagination>
     </div>
+<!--    <vMedia :mediaUrl="mediaUrl" />-->
   </div>
 </template>
 
 <script>
 import { unit } from '../config'
 import { getGoodsList } from '../api'
+import vMedia from '@/components/Media'
 
 export default {
   name: 'goods',
+  components: { vMedia },
   data: () => ({
     itemsPerPage: 10,
     page: 1,
     pageCount: 0,
     list: [],
     isLoading: false,
+    isShowMedia: false,
     transparent: 'rgba(255, 255, 255, 0)',
+    mediaUrl: '',
   }),
   computed: {
     headers() {
@@ -128,6 +135,9 @@ export default {
     },
     toDetail(rowData) {
       this.$router.push('/detail/' + rowData.id)
+    },
+    showExpandMedia(url) {
+      window.open(url, '_blank')
     },
   },
 }
