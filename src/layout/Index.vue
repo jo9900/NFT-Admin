@@ -22,22 +22,24 @@
       </v-container>
     </v-app-bar>
 
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3" id="main">
       <v-container fluid>
         <v-row>
           <v-col cols="12" sm="2" md="2">
             <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item
-                  v-for="item in linkList"
-                  :key="item.path"
-                  link
-                  @click="$router.push(item.path)"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title> {{ item.text }} </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+              <v-list color="transparent" flat>
+                <v-list-item-group v-model="selectedItem" color="indigo">
+                  <v-list-item
+                    v-for="(item, index) in linkList"
+                    :key="item.path"
+                    link
+                    @click="toRoute(item, index)"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title> {{ item.text }} </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
               </v-list>
             </v-sheet>
           </v-col>
@@ -69,6 +71,7 @@ export default {
   components: { vMsg },
   data() {
     return {
+      selectedItem: 0,
       address: '',
       mallName: mallName,
       isShowMenu: false,
@@ -126,6 +129,10 @@ export default {
     },
   },
   methods: {
+    toRoute(item, index) {
+      this.selectedItem = index
+      this.$router.push(item.path)
+    },
     triggerMenu(bool) {
       this.isShowMenu = bool
     },
@@ -136,4 +143,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+#main
+  background url("../assets/background.png") center center no-repeat
+  background-size cover
+</style>

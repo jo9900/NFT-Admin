@@ -1,14 +1,19 @@
 <template>
   <div class="login-wrap">
-    <div class="connect-btn" role="button" @click="onConnectAndLogin">
-      连接钱包
+    <div class="drop-shadow">
+      <div class="glass"></div>
+      <span>
+        <span class="title">后台管理面板</span>
+        <span
+          v-ripple
+          role="button"
+          class="connect-btn"
+          @click="onConnectAndLogin"
+        >
+          连接钱包
+        </span>
+      </span>
     </div>
-    <ul>
-      <li>mallCode: {{ mt.mallCode }} </li>
-      <li>mallDescription: {{ mt.mallDescription }} </li>
-      <li>商城名字: {{ mt.mallName }}</li>
-      <li>token: {{ mt.token }}</li>
-    </ul>
   </div>
 </template>
 
@@ -17,7 +22,7 @@ export default {
   name: 'Login',
   data() {
     return {
-      mt: {}
+      mt: {},
     }
   },
   mounted() {
@@ -69,9 +74,112 @@ export default {
   bottom 0
   top 0
   background #171a46
+  background url("../assets/login-background.jpg") center center no-repeat
 .connect-btn
-  font-size 24px
+  display inline-block
+  width 200px
+  background #ffff
+  color #000
+  border-radius 8px
   text-align center
-  margin-top 30vh
-  color #fff
+  height 50px
+  line-height 50px
+  margin-left 30px
+.title
+  font-size 30px
+  font-weight bold
+  line-height 50px
+
+
+
+
+$blur = 20px;
+$shadow-opacity =  0.30;
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background url("../assets/login-background.jpg") center center no-repeat
+  background-size: cover;
+  background-position: center;
+  font-family: 'Rajdhani', sans-serif;
+
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.glass {
+  height: 100%;
+  width: 100%;
+  background url("../assets/login-background.jpg") center center no-repeat
+  background-size: cover;
+  background-position: center;
+  clip-path: inset(21em);
+  filter: blur($blur);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop-shadow {
+  height: 100%;
+  width: 100%;
+  filter:  drop-shadow(0px 20px 10px rgba(0, 0, 0, $shadow-opacity));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 10em;
+    height: calc(100% - 20em);
+    width: calc(100% - 20em);
+    z-index: 2;
+    //  filter: blur(1px);
+  }
+
+
+  > span {
+    position: absolute;
+    z-index: 5;
+    color: white;
+    font-size: 20px
+    padding-left: 0.375em;
+  }
+}
+
+@media (max-width: 980px) {
+  .glass {
+    clip-path: inset(5em);
+  }
+  .drop-shadow {
+    &:before {
+      top: 5em;
+      width: calc(100% - 10em);
+    }
+    > span {
+      font-size: 4em;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+
+  .drop-shadow {
+    > span {
+      font-size: 2em;
+    }
+  }
+}
 </style>

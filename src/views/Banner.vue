@@ -91,7 +91,7 @@
       <div class="text-center pt-2">
         <v-pagination
           v-model="page"
-          color="primary"
+          color="indigo"
           total-visible="8"
           :length="pageCount"
         ></v-pagination>
