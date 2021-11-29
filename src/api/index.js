@@ -13,9 +13,17 @@ export const getGoodsList = (params = {}) => {
 }
 
 export const getGoodsDetail = (params = {}, id) => {
-  return post(_mallCode + '/goods/detail/' + id, params)
+  return get(_mallCode + '/goods/detail/' + id, params)
 }
 
 export const getOrders = (params = {}) => {
   return post(base + '/orders/listPage', params)
+}
+
+// 服务费信息-根据当前登录人查询
+export const getFee = (params = {}) => {
+  return get(base + '/mallInfo/current/getInfo', params)
+}
+export const updateFee = (params = {}) => {
+  return post(base + '/mallInfo/update', params)
 }

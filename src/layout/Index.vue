@@ -51,12 +51,18 @@
           </v-col>
 
           <v-col cols="12" sm="10" md="10">
-            <v-sheet min-height="75vh" max-height="85vh" rounded="lg">
+            <v-sheet
+              min-height="75vh"
+              max-height="85vh"
+              rounded="lg"
+              style="overflow: hidden"
+            >
               <router-view />
             </v-sheet>
           </v-col>
         </v-row>
       </v-container>
+      <vMsg></vMsg>
     </v-main>
   </v-app>
 </template>
@@ -64,9 +70,10 @@
 <script>
 import { maskingAddress } from '@/utils'
 import { mallName } from '../config'
-
+import vMsg from '../components/Msg'
 export default {
   name: 'Index',
+  components: { vMsg },
   data() {
     return {
       address: '',

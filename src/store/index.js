@@ -14,11 +14,19 @@ export default new Vuex.Store({
       type: 'common',
     },
     uInfo: {},
+    snackbar: {
+      isShow: false,
+      msg: ''
+    },
   },
   modules: {
     web3Modal: web3ModalStore,
   },
   mutations: {
+    TOGGLE_SNACKBAR(state,{ msg='', bool = true }) {
+      state.snackbar.isShow = bool
+      state.snackbar.msg = msg
+    },
     initMsgConfig(state) {
       state.msgConfig = {
         isShow: false,
