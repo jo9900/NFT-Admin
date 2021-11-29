@@ -8,7 +8,7 @@
       </v-row>
       <v-row>
         <v-col cols="3">作品类型</v-col>
-        <v-col cols="9">{{ formatGoodsType(nftData.goodsType) }}</v-col>
+        <v-col cols="9">{{ nftData.goodsType | formatGoodsType }}</v-col>
       </v-row>
       <v-row>
         <v-col cols="3">作品图像</v-col>
@@ -49,7 +49,7 @@
       <v-row>
         <v-col cols="3">作品状态</v-col>
         <v-col cols="9">{{
-          formatGroundingState(nftData.groundingState)
+          nftData.groundingState | formatGroundingState
         }}</v-col>
       </v-row>
     </v-card>
@@ -82,18 +82,20 @@ export default {
     },
   }),
   computed: {
-    nav: [
-      {
-        text: '作品管理',
-        disabled: false,
-        href: '/goods',
-      },
-      {
-        text: this.nftData.goodsName,
-        disabled: false,
-        href: `/detail/${this.nftData.id}`,
-      }
-    ]
+    nav(){
+      return [
+        {
+          text: '作品管理',
+          disabled: false,
+          href: '/goods',
+        },
+        {
+          text: this.nftData.goodsName,
+          disabled: false,
+          href: `/detail/${this.nftData.id}`,
+        }
+      ]
+    }
   },
   created() {
     this.init()
@@ -103,6 +105,7 @@ export default {
       this.getData()
     },
     getData() {
+      console.log( this.$route );
       const id = this.$route.params.id
       getGoodsDetail({}, id).then((res) => {
         this.nftData = res.data

@@ -15,3 +15,7 @@ export const getGoodsList = (params = {}) => {
 export const getGoodsDetail = (params = {}, id) => {
   return post(_mallCode + '/goods/detail/' + id, params)
 }
+
+export const getOrders = (params = {}) => {
+  return post(base + '/orders/listPage', params)
+}

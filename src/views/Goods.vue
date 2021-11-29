@@ -14,16 +14,43 @@
       :loading="isLoading"
       @page-count="pageCount = $event"
     >
-      <template v-slot:item.apply_time="{ item }">
-        {{ formatGoodsType(item.goodsType) }}
+      <template v-slot:item.goodsName="{ item }">
+        <div class="text-truncate w180">
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-chip v-bind="attrs" v-on="on">
+                {{ item.goodsName }}
+              </v-chip>
+            </template>
+            <span>{{ item.goodsName }}</span>
+          </v-tooltip>
+        </div>
       </template>
 
-      <template v-slot:item.apply_time="{ item }">
+      <template v-slot:item.goodsType="{ item }">
+        {{ item.goodsType | formatGoodsType }}
+      </template>
+
+      <template v-slot:item.goodsUrl="{ item }">
+        <v-hover v-slot="{ hover }">
+          <v-img :src="item.goodsUrl" width="30" contain>
+            <div class="align-self-center">
+              <v-btn :class="{ 'show-btns': hover }" :color="transparent" icon>
+                <v-icon :class="{ 'show-btns': hover }" :color="transparent">
+                  mdi-magnify-expand
+                </v-icon>
+              </v-btn>
+            </div>
+          </v-img>
+        </v-hover>
+      </template>
+
+      <template v-slot:item.groundingState="{ item }">
         <v-chip
           :color="item.groundingState === 1 ? 'indigo' : 'success'"
           outlined
         >
-          {{ formatGroundingState(item.groundingState) }}
+          {{ item.groundingState | formatGroundingState }}
         </v-chip>
       </template>
 
@@ -33,6 +60,7 @@
     </v-data-table>
     <div class="text-center pt-2">
       <v-pagination
+        circle
         v-model="page"
         color="primary"
         total-visible="8"
@@ -54,6 +82,7 @@ export default {
     pageCount: 0,
     list: [],
     isLoading: false,
+    transparent: 'rgba(255, 255, 255, 0)',
   }),
   computed: {
     headers() {
@@ -64,15 +93,15 @@ export default {
           sortable: false,
           value: 'goodsName',
         },
-        { text: '作品类型', value: 'goodsType' },
+        { text: '作品类型', value: 'goodsType', width: '130' },
         { text: '作品图像', value: 'goodsUrl' },
-        { text: `售价（${unit}）`, value: 'goodsPrice' },
-        { text: '创作者', value: 'goodsAuthorName' },
-        { text: '拥有者', value: 'goodsOwnName' },
-        { text: '首次挂售时间', value: 'firstSellTime' },
-        { text: '最后成交时间', value: 'lastTransTime' },
+        { text: `售价（${unit}）`, value: 'goodsPrice', align: 'right' },
+        { text: '创作者', value: 'goodsAuthorName', width: '130' },
+        { text: '拥有者', value: 'goodsOwnName', width: '130' },
+        { text: '首次挂售时间', value: 'firstSellTime', width: '180' },
+        { text: '最后成交时间', value: 'lastTransTime', width: '180' },
         { text: '作品状态', value: 'groundingState' },
-        { text: '操作', value: '_actions' },
+        { text: '操作', value: '_actions', align: 'center' },
       ]
     },
   },
@@ -86,23 +115,28 @@ export default {
     getData(pageNum = 1) {
       this.isLoading = true
       const params = {
-        limit: this.limit,
+        limit: this.itemsPerPage,
         pageNum: pageNum,
       }
       getGoodsList(params)
         .then((res) => {
           this.list = res.data.list
+          this.pageCount = res.data.pageCount
         })
         .finally(() => {
           this.isLoading = false
         })
     },
     toDetail(rowData) {
-      console.log(rowData)
       this.$router.push('/detail/' + rowData.id)
     },
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+.w180
+  max-width: 180px
+.show-btns
+  color: rgba(255, 255, 255, 1) !important;
+</style>

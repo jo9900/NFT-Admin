@@ -12,3 +12,4 @@ export const VUE_APP_NCA = process.env.VUE_APP_NCA
 export const VUE_APP_PAYTOKEN = process.env.VUE_APP_PAYTOKEN
 export const mallCode = JSON.parse(localStorage.getItem('uInfo'))?.mallCode || 'firstMall'
 export const mallName = JSON.parse(localStorage.getItem('uInfo'))?.mallName || ''
+export const mallWalletAddress = '111'

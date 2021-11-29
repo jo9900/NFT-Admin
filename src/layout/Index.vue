@@ -13,7 +13,7 @@
               </v-chip>
             </template>
             <v-list>
-              <v-list-item @click="store.dispatch('disconnect')"
+              <v-list-item @click="$store.dispatch('disconnect')"
                 >断开连接
               </v-list-item>
             </v-list>
@@ -25,7 +25,7 @@
     <v-main class="grey lighten-3">
       <v-container fluid>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="12" sm="2" md="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
                 <v-list-item
@@ -50,7 +50,7 @@
             </v-sheet>
           </v-col>
 
-          <v-col>
+          <v-col cols="12" sm="10" md="10">
             <v-sheet min-height="75vh" max-height="85vh" rounded="lg">
               <router-view />
             </v-sheet>
@@ -63,12 +63,10 @@
 
 <script>
 import { maskingAddress } from '@/utils'
-import Mixins from "../mixins";
-import {mallName} from "../config";
+import { mallName } from '../config'
 
 export default {
   name: 'Index',
-  mixins: [Mixins],
   data() {
     return {
       address: '',
