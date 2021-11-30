@@ -178,10 +178,10 @@ import {
   addBanner,
   getBannerData,
   getBannerList,
-  getRssUrl,
   triggerBannerState,
   updateBanner,
 } from '../api'
+import { getRssUrl } from '../api/rss'
 import { mallCode } from '../config'
 import { debounce } from 'lodash'
 import VMedia from '@/components/Media'
@@ -225,9 +225,8 @@ export default {
     },
   },
   computed: {
-
-    rules(){
-      return  {
+    rules() {
+      return {
         focusName: [
           (v) => !!v || this.$t('text43'),
           (v) => (v && v.length <= 30) || this.$t('text56'),
@@ -333,7 +332,7 @@ export default {
       triggerBannerState({}, id).then((res) => {
         this.$store.commit('TOGGLE_SNACKBAR', {
           bool: true,
-          msg: numState === 1 ? this.$t('text65') :this.$t('text66'),
+          msg: numState === 1 ? this.$t('text65') : this.$t('text66'),
         })
         this.getData(1)
       })

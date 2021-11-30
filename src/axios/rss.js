@@ -22,8 +22,11 @@ const instance = axios.create({
   timeout: 5000,
   headers: { 'Content-Type': 'multipart/form-data' },
 })
+console.log( process.env.VUE_APP_WEB_URL );
+console.log( instance );
 instance.interceptors.request.use(
   (config) => {
+    console.log( config );
     return config
   },
   (error) => {

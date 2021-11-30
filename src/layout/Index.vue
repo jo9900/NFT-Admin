@@ -13,7 +13,7 @@
             </template>
             <v-list>
               <v-list-item @click="$store.dispatch('disconnect')"
-                >断开连接
+                >{{ $t('text83') }}
               </v-list-item>
             </v-list>
           </v-menu>

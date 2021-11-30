@@ -39,9 +39,6 @@ export const triggerBannerState = (params = {}, id) => {
 export const addBanner = (params = {}) => {
   return post(_mallCode + '/focusMap/add', params)
 }
-export const getRssUrl = (params) => {
-  return post('rss/mgt/v1/file/upload', params)
-}
 
 export const updateBanner = (params ={}, id) => {
   return post(_mallCode + '/focusMap/updateById' + id, params)
