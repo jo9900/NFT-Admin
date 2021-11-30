@@ -17,8 +17,7 @@ const formatError = (code) => {
   return res
 }
 const instance = axios.create({
-  baseURL: (axios.defaults.baseURL =
-    process.env.NODE_ENV === 'local' ? '' : process.env.VUE_APP_WEB_URL),
+  baseURL: '',
   timeout: 5000,
   headers: { 'Content-Type': 'multipart/form-data' },
 })

@@ -324,7 +324,7 @@ export default {
       let form = new FormData()
       form.append('project', 'nft_adm')
       form.append('file_url', file)
-      getRssUrl().then((res) => {
+      getRssUrl(form).then((res) => {
         this.form.focusMapUrl = this.VUE_APP_WEB_URL + res.data.file_url
       })
     },
