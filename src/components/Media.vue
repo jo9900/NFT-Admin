@@ -78,4 +78,12 @@ export default {
 <style scoped lang="stylus">
 .media-container
   cursor pointer
+
+.media-wrap
+  ::v-deep .content
+    max-width 100px
+    height 30px
+  ::v-deep .sound .content
+    max-width 100px
+
 </style>

@@ -117,8 +117,4 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.media-wrap
-  min-width: 100px;
-  min-height: 100px;
-  cursor pointer
 </style>
