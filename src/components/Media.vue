@@ -1,6 +1,6 @@
 <template>
-  <div class="media-wrap">
-    <div class="container">
+  <div :class="type">
+    <div class="media-container">
       <v-img
         :src="$attrs.mediaUrl"
         v-if="type === 'img'"
@@ -8,25 +8,27 @@
         height="100%"
         contain
       ></v-img>
-      <audio
-        v-if="type === 'sound'"
-        ref="audioEL"
-        class="content"
-        controlslist="nodownload"
-        loop
-        preload="metadata"
-        :src="$attrs.mediaUrl"
-      ></audio>
-
       <video
+        v-if="type === 'sound'"
+        controls=""
+        :autoplay="false"
+        name="media"
+        loop
+        muted="muted"
+        controlslist="nodownload"
+        preload="metadata"
+      >
+        <source :src="$attrs.mediaUrl" type="audio/mpeg" />
+      </video>
+      <video
+        :autoplay="false"
+        muted="muted"
+        controls=""
         v-if="type === 'video'"
-        ref="videoEL"
-        class="video content"
         controlslist="nodownload"
         loop
         playsinline
         preload="metadata"
-        style="border-radius: 0px"
       >
         <source :src="$attrs.mediaUrl" type="video/mp4" />
       </video>
@@ -69,4 +71,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.sound
+  background url("../assets/sound.png") center center no-repeat
 </style>
