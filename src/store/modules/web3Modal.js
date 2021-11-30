@@ -1,11 +1,11 @@
 import { ethers } from 'ethers'
 import { parseInt } from 'lodash'
-import { VUE_APP_RFC } from '@/config'
 import { BigNumber } from 'ethers'
 
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 const VUE_APP_CHAIN_ID = process.env.VUE_APP_CHAIN_ID
+const VUE_APP_RFC = process.env.VUE_APP_RFC
 const web3ModalStore = {
   state: {
     web3Modal: null,

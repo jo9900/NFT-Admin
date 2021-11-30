@@ -12,6 +12,7 @@ if (!localStorage.getItem('locale')) {
     window.localStorage.setItem('locale', 'en')
   }
 }
+export const VUE_APP_RFC = process.env.VUE_APP_RFC
 export const currentLocale = localStorage.getItem('locale') || 'en'
 export const mallCode = JSON.parse(localStorage.getItem('uInfo'))?.mallCode || 'firstMall'
 export const mallName = JSON.parse(localStorage.getItem('uInfo'))?.mallName || ''
