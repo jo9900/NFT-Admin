@@ -17,6 +17,17 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon class="ml-4" v-bind="attrs" v-on="on"
+                >mdi-translate</v-icon
+              >
+            </template>
+            <v-list>
+              <v-list-item @click="changeLocale('zh')">简体中文 </v-list-item>
+              <v-list-item @click="changeLocale('en')">English </v-list-item>
+            </v-list>
+          </v-menu>
         </div>
       </v-container>
     </v-app-bar>
@@ -74,25 +85,29 @@ export default {
       address: '',
       mallName: mallName,
       isShowMenu: false,
-      linkList: [
+    }
+  },
+  computed: {
+    linkList() {
+      return [
         {
-          text: '作品管理',
+          text: this.$t('text35'),
           path: '/goods',
         },
         {
-          text: '订单管理',
+          text: this.$t('text84'),
           path: '/orders',
         },
         {
-          text: '服务费管理',
+          text: this.$t('text85'),
           path: '/fee',
         },
         {
-          text: '焦点图管理',
+          text: this.$t('text86'),
           path: '/banner',
         },
-      ],
-    }
+      ]
+    },
   },
   mounted() {
     window.addEventListener('beforeunload', () => {
@@ -137,6 +152,10 @@ export default {
     },
     onConnectAndLogin() {
       this.$store.dispatch('connect')
+    },
+    changeLocale(lang) {
+      window.localStorage.setItem('locale', lang)
+      window.location.reload()
     },
   },
 }
