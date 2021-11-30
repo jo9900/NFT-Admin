@@ -19,7 +19,7 @@ const nftInstance = axios.create({
 })
 nftInstance.interceptors.request.use(
   (config) => {
-    const token = store.getters.getToken
+    const token = localStorage.getItem('uAuthorization')
     if (token) {
       config.headers.Authorization = token
     }
