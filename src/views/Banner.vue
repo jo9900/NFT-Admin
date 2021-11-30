@@ -43,7 +43,7 @@
         :items-per-page="itemsPerPage"
         height="70vh"
         hide-default-footer
-        class="elevation-1"
+        class="elevation-1 table"
         disable-sort
         fixed-header
         :no-data-text="'暂无数据'"
@@ -56,25 +56,10 @@
           </v-chip>
         </template>
         <template v-slot:item.focusMapUrl="{ item }">
-          <v-hover v-slot="{ hover }">
-            <v-img :src="item.focusMapUrl" width="30" contain>
-              <div class="align-self-center">
-                <v-btn
-                  :class="{ 'show-btns': hover }"
-                  :color="transparent"
-                  icon
-                >
-                  <v-icon
-                    :class="{ 'show-btns': hover }"
-                    :color="transparent"
-                    @click="showExpandMedia(item.focusMapUrl)"
-                  >
-                    mdi-magnify-expand
-                  </v-icon>
-                </v-btn>
-              </div>
-            </v-img>
-          </v-hover>
+          <VMedia
+            :mediaUrl="item.focusMapUrl"
+            class="media-wrap"
+          />
         </template>
         <template v-slot:item.focusLink="{ item }">
           <v-btn icon @click="toOuterPage(item)" v-if="item.focusLink">
@@ -203,9 +188,11 @@ import {
 } from '../api'
 import { mallCode } from '../config'
 import { debounce } from 'lodash'
+import VMedia from '@/components/Media'
 
 export default {
   name: 'Banner',
+  components: { VMedia },
   data: () => ({
     itemsPerPage: 10,
     page: 1,
@@ -274,7 +261,7 @@ export default {
           sortable: false,
           value: 'focusName',
         },
-        { text: '图片', value: 'focusMapUrl' },
+        { text: '图片', value: 'focusMapUrl', width: '120' },
         { text: '链接', value: 'focusLink' },
         { text: '状态', value: 'numState' },
         { text: '添加时间', value: 'createTime', width: '180' },
@@ -380,14 +367,13 @@ export default {
       this.$refs.form.reset()
       this.form.focusMapUrl = ''
     },
-    showExpandMedia(url) {
-      window.open(url, '_blank')
-    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
+@import "~@/stylus/mediaExpand.styl"
+
 .refresh-btn
   height 38px !important
 </style>

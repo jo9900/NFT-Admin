@@ -30,22 +30,10 @@
         {{ item.goodsType | formatGoodsType }}
       </template>
       <template v-slot:item.goodsUrl="{ item }">
-        <v-hover v-slot="{ hover }">
-          <v-img :src="item.goodsUrl" width="30" contain>
-            <div class="align-self-center">
-              <v-btn
-                :class="{ 'show-btns': hover }"
-                :color="transparent"
-                icon
-                @click="showExpandMedia(item.goodsUrl)"
-              >
-                <v-icon :class="{ 'show-btns': hover }" :color="transparent">
-                  mdi-magnify-expand
-                </v-icon>
-              </v-btn>
-            </div>
-          </v-img>
-        </v-hover>
+        <VMedia
+          :mediaUrl="item.goodsUrl"
+          class="media-wrap"
+        />
       </template>
       <template v-slot:item.numState="{ item }">
         {{ item.numState | formatOrderState }}
@@ -70,15 +58,17 @@
 <script>
 import { mallWalletAddress, unit, scanHref } from '../config'
 import { getOrders } from '../api'
+import VMedia from '@/components/Media'
+
 export default {
   name: 'Orders',
+  components: { VMedia },
   data: () => ({
     itemsPerPage: 10,
     page: 1,
     pageCount: 0,
     list: [],
     isLoading: false,
-    transparent: 'rgba(255, 255, 255, 0)',
   }),
   created() {
     this.init()
@@ -136,4 +126,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+@import "~@/stylus/mediaExpand.styl"
+
+</style>

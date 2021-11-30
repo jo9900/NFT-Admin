@@ -32,22 +32,10 @@
       </template>
 
       <template v-slot:item.goodsUrl="{ item }">
-        <v-hover v-slot="{ hover }">
-          <v-img :src="item.goodsUrl" width="30" contain>
-            <div class="align-self-center">
-              <v-btn
-                :class="{ 'show-btns': hover }"
-                :color="transparent"
-                icon
-                @click="showExpandMedia(item.goodsUrl)"
-              >
-                <v-icon :class="{ 'show-btns': hover }" :color="transparent">
-                  mdi-magnify-expand
-                </v-icon>
-              </v-btn>
-            </div>
-          </v-img>
-        </v-hover>
+        <VMedia
+          :mediaUrl="item.goodsUrl"
+          class="media-wrap"
+        />
       </template>
 
       <template v-slot:item.groundingState="{ item }">
@@ -68,18 +56,18 @@
         :length="pageCount"
       ></v-pagination>
     </div>
-<!--    <vMedia :mediaUrl="mediaUrl" />-->
+    <!--    <vMedia :mediaUrl="mediaUrl" />-->
   </div>
 </template>
 
 <script>
 import { unit } from '../config'
 import { getGoodsList } from '../api'
-import vMedia from '@/components/Media'
+import VMedia from '@/components/Media'
 
 export default {
   name: 'goods',
-  components: { vMedia },
+  components: { VMedia },
   data: () => ({
     itemsPerPage: 10,
     page: 1,
@@ -87,7 +75,6 @@ export default {
     list: [],
     isLoading: false,
     isShowMedia: false,
-    transparent: 'rgba(255, 255, 255, 0)',
     mediaUrl: '',
   }),
   computed: {
@@ -136,14 +123,12 @@ export default {
     toDetail(rowData) {
       this.$router.push('/detail/' + rowData.id)
     },
-    showExpandMedia(url) {
-      window.open(url, '_blank')
-    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
+@import "~@/stylus/mediaExpand.styl"
 .w180
   max-width: 180px
 </style>

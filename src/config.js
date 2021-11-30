@@ -1,7 +1,7 @@
 export const scanHref = process.env.VUE_APP_TEST_SCAN
 export const unit = 'USDT'
 export const validatedMediaExt = {
-  img: ['jpg', 'jpeg', 'png', 'gif', 'svg'],
+  img: ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'],
   video: ['mp4', 'webm'],
   sound: ['mp3', 'wav'],
 }

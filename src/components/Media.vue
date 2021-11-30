@@ -1,17 +1,18 @@
 <template>
   <div :class="type">
-    <div class="media-container">
+    <div class="media-container"
+         @click="showExpandMedia($attrs.mediaUrl)">
       <v-img
         :src="$attrs.mediaUrl"
         v-if="type === 'img'"
-        width="100%"
-        height="100%"
+        class="content"
         contain
       ></v-img>
       <video
         v-if="type === 'sound'"
         controls=""
         :autoplay="false"
+        class="content"
         name="media"
         loop
         muted="muted"
@@ -24,6 +25,7 @@
         :autoplay="false"
         muted="muted"
         controls=""
+        class="content"
         v-if="type === 'video'"
         controlslist="nodownload"
         loop
@@ -66,11 +68,14 @@ export default {
         }
       }
     },
+    showExpandMedia(url) {
+      window.open(url, '_blank')
+    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
-.sound
-  background url("../assets/sound.png") center center no-repeat
+.media-container
+  cursor pointer
 </style>
