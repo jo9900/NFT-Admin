@@ -10,7 +10,7 @@
       class="elevation-1"
       disable-sort
       fixed-header
-      :no-data-text="'暂无数据'"
+      :no-data-text="$t('text3')"
       :loading="isLoading"
       @page-count="pageCount = $event"
     >
@@ -77,21 +77,21 @@ export default {
     headers() {
       return [
         {
-          text: '订单编号',
+          text: this.$t('text4'),
           align: 'start',
           sortable: false,
           value: 'orderNo',
           width: '130',
         },
-        { text: '作品名称', value: 'goodsName' },
-        { text: '作品类型', value: 'goodsType', width: '130' },
-        { text: '作品图像', value: 'goodsUrl' },
-        { text: `成交价（${unit}）`, value: 'orderDPrice', align: 'right' },
-        { text: '挂售者', value: 'orderSellerName', width: '130' },
-        { text: '买入者', value: 'orderBuyerName', width: '130' },
-        { text: '订单状态', value: 'numState', width: '130' },
-        { text: '成交时间', value: 'transTime', width: '180' },
-        { text: '操作', value: '_actions', align: 'center' },
+        { text: this.$t('text5'), value: 'goodsName' },
+        { text: this.$t('text6'), value: 'goodsType', width: '130' },
+        { text: this.$t('text7'), value: 'goodsUrl' },
+        { text: `${this.$t('text8')}（${unit}）`, value: 'orderDPrice', align: 'right' },
+        { text: this.$t('text9'), value: 'orderSellerName', width: '130' },
+        { text: this.$t('text10'), value: 'orderBuyerName', width: '130' },
+        { text: this.$t('text11'), value: 'numState', width: '130' },
+        { text: this.$t('text12'), value: 'transTime', width: '180' },
+        { text: this.$t('text13'), value: '_actions', align: 'center' },
       ]
     },
   },
@@ -118,10 +118,7 @@ export default {
     toScan(rowData) {
       console.log(rowData)
       window.open(scanHref + 'tx/' + rowData.transHash, '_blank')
-    },
-    showExpandMedia(url) {
-      window.open(url, '_blank')
-    },
+    }
   },
 }
 </script>

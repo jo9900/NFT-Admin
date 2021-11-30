@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from '../router'
 import web3ModalStore from './modules/web3Modal.js'
 import { userLogin } from '../api'
+import {mallWalletAddress} from "../config";
 
 Vue.use(Vuex)
 
@@ -27,13 +28,6 @@ export default new Vuex.Store({
       state.snackbar.isShow = bool
       state.snackbar.msg = msg
     },
-    initMsgConfig(state) {
-      state.msgConfig = {
-        isShow: false,
-        msg: '',
-        type: 'common',
-      }
-    },
   },
   getters: {
     uInfo: () => {
@@ -48,13 +42,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    Message({ commit, state }, obj) {
-      state.msgConfig = obj
-      const timer = setTimeout(() => {
-        commit('initMsgConfig')
-        clearTimeout(timer)
-      }, 5 * 1000)
-    },
     logout({ dispatch }) {
       router.push('/login')
       localStorage.removeItem('uAuthorization')
@@ -63,7 +50,8 @@ export default new Vuex.Store({
     },
     login({ state }) {
       // const { account } = state.web3Modal
-      const account = '111'
+      // TODO 这里现在是写死的
+      const account = mallWalletAddress
       userLogin({ walletAddress: account }).then((res) => {
         localStorage.setItem('uInfo', JSON.stringify(res.data))
         localStorage.setItem('uAuthorization', res.data.token)

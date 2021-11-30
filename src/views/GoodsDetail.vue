@@ -3,51 +3,51 @@
     <v-breadcrumbs :items="nav" />
     <v-card min-width="50vw" max-width="70vw" flat class="pa-8">
       <v-row>
-        <v-col cols="3">作品名称</v-col>
+        <v-col cols="3">{{ $t('text14') }}</v-col>
         <v-col cols="9">{{ nftData.goodsName }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">作品类型</v-col>
+        <v-col cols="3">{{ $t('text15') }}</v-col>
         <v-col cols="9">{{ nftData.goodsType | formatGoodsType }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">作品图像</v-col>
+        <v-col cols="3">{{ $t('text16') }}</v-col>
         <v-col cols="9">
-          <div @click="showExpandMedia(nftData.goodsUrl)">
+          <div>
             <vMedia :mediaUrl="nftData.goodsUrl" class="media-wrap" />
           </div>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">描述</v-col>
+        <v-col cols="3">{{ $t('text17') }}</v-col>
         <v-col cols="9">{{ nftData.goodsDes }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">售价</v-col>
+        <v-col cols="3">{{ $t('text18') }}</v-col>
         <v-col cols="9">{{ nftData.goodsPrice }} {{ unit }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">版税</v-col>
+        <v-col cols="3">{{ $t('text19') }}</v-col>
         <v-col cols="9">{{ nftData.goodsRoyalties }} %</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">创作者</v-col>
+        <v-col cols="3">{{ $t('text20') }}</v-col>
         <v-col cols="9">{{ nftData.goodsAuthorName }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">拥有者</v-col>
+        <v-col cols="3">{{ $t('text31') }}</v-col>
         <v-col cols="9">{{ nftData.goodsOwnName }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">首次挂售时间</v-col>
+        <v-col cols="3">{{ $t('text32') }}</v-col>
         <v-col cols="9">{{ nftData.firstSellTime }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">最后成交时间</v-col>
+        <v-col cols="3">{{ $t('text33') }}</v-col>
         <v-col cols="9">{{ nftData.lastTransTime }}</v-col>
       </v-row>
       <v-row>
-        <v-col cols="3">作品状态</v-col>
+        <v-col cols="3">{{ $t('text34') }}</v-col>
         <v-col cols="9">{{
           nftData.groundingState | formatGroundingState
         }}</v-col>
@@ -86,7 +86,7 @@ export default {
     nav() {
       return [
         {
-          text: '作品管理',
+          text: this.$t('text35'),
           disabled: false,
           href: '/goods',
         },
@@ -111,10 +111,6 @@ export default {
       getGoodsDetail({}, id).then((res) => {
         this.nftData = res.data
       })
-    },
-    showExpandMedia(url) {
-      console.log(url)
-      window.open(url, '_blank')
     },
   },
 }

@@ -11,8 +11,8 @@
           <v-text-field
             v-model.trim="form.serviceFee"
             :rules="rules.serviceFee"
-            label="交易服务费"
-            hint="当作品每次交易时，从成交额中收取的服务费，由卖家支付"
+            :label="$t('text37')"
+            :hint="$t('text38')"
             persistent-hint
             ref="feeInput"
             required
@@ -22,8 +22,8 @@
             class="mt-8"
             v-model.trim="form.transWalletAddress"
             :rules="rules.transWalletAddress"
-            label="收款钱包地址"
-            hint="收取每笔交易服务费的钱包地址"
+            :label="$t('text39')"
+            :hint="$t('text40')"
             persistent-hint
             required
           ></v-text-field>
@@ -37,7 +37,7 @@
               block
               v-if="!isReadonly"
             >
-              提交
+              {{ $t('text41') }}
             </v-btn>
             <v-btn
               v-else
@@ -47,7 +47,7 @@
               class="mt-10"
               block
               @click="toEdit"
-              >编辑</v-btn
+              >{{ $t('text42') }}</v-btn
             >
           </v-row>
         </v-form>
@@ -57,7 +57,6 @@
 </template>
 
 <script>
-// import {validate} from 'trezor-address-validator'
 import { getFee, updateFee } from '../api'
 const checkPrice = (price) => {
   let ret = /^([1-9][0-9]*(\.[0-9]{1,2})?|0\.(?!0+$)[0-9]{1,2})$/
@@ -73,11 +72,18 @@ export default {
       transWalletAddress: '',
       serviceFee: '',
     },
-    rules: {
-      serviceFee: [(v) => !!v || '必填', (v)=> checkPrice(v) || '交易服务费必须大于等于0，支持小数点后面2位小数'],
-      transWalletAddress: [(v) => !!v || '必填'],
-    },
   }),
+  computed: {
+    rules() {
+      return {
+        serviceFee: [
+          (v) => !!v || this.$t('text43'),
+          (v) => checkPrice(v) || this.$t('text44'),
+        ],
+        transWalletAddress: [(v) => !!v || this.$t('text43')],
+      }
+    },
+  },
   created() {
     this.init()
   },
@@ -90,7 +96,7 @@ export default {
         this.form = res.data
       })
     },
-    toEdit(){
+    toEdit() {
       this.$refs.feeInput.focus()
       this.isReadonly = false
     },
@@ -99,17 +105,15 @@ export default {
         updateFee(this.form).then((res) => {
           console.log(res)
           this.isReadonly = true
-          this.$store.commit('TOGGLE_SNACKBAR',
-            { bool: true, msg: '更新成功' }
-          )
+          this.$store.commit('TOGGLE_SNACKBAR', {
+            bool: true,
+            msg: this.$t('text45'),
+          })
         })
       }
     },
     reset() {
       this.$refs.form.reset()
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation()
     },
   },
 }

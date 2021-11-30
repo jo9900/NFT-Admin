@@ -45,7 +45,7 @@
         class="elevation-1 table"
         disable-sort
         fixed-header
-        :no-data-text="'暂无数据'"
+        :no-data-text="$t('text3')"
         :loading="isLoading"
         @page-count="pageCount = $event"
       >
@@ -55,10 +55,7 @@
           </v-chip>
         </template>
         <template v-slot:item.focusMapUrl="{ item }">
-          <VMedia
-            :mediaUrl="item.focusMapUrl"
-            class="media-wrap"
-          />
+          <VMedia :mediaUrl="item.focusMapUrl" class="media-wrap" />
         </template>
         <template v-slot:item.focusLink="{ item }">
           <v-btn icon @click="toOuterPage(item)" v-if="item.focusLink">
@@ -90,7 +87,7 @@
       <v-card class="px-8 py-4">
         <v-card-title class="py-8">
           <span class="text-h5">{{
-            isEditing ? '编辑焦点图' : '添加焦点图'
+            isEditing ? $t('text46') : $t('text47')
           }}</span>
         </v-card-title>
         <v-card-text>
@@ -98,7 +95,7 @@
             <v-text-field
               v-model.trim="form.focusName"
               :rules="rules.focusName"
-              label="焦点图名称"
+              :label="$t('text48')"
               required
               counter="30"
               class="mb-4"
@@ -106,7 +103,7 @@
             <v-row no-gutters>
               <v-file-input
                 accept="image/.jpg, .jpeg, .png, .gif"
-                label="请选择图片"
+                :label="$t('text49')"
                 v-model="imageFile"
                 prepend-icon=""
                 class="mb-4"
@@ -124,7 +121,7 @@
 
             <v-text-field
               v-model.trim="form.focusLink"
-              label="链接"
+              :label="$t('text50')"
               class="mb-4"
             ></v-text-field>
             <v-select
@@ -132,7 +129,7 @@
               v-model="form.focusLocation"
               :items="items"
               :rules="rules.focusLocation"
-              label="焦点图位置"
+              :label="$t('text51')"
               item-text="text"
               item-value="value"
               class="mb-4"
@@ -148,7 +145,7 @@
             outlined
             large
           >
-            取消
+            {{ $t('text52') }}
           </v-btn>
           <v-btn
             v-if="!isEditing"
@@ -158,7 +155,7 @@
             @click="onConfirm"
             color="indigo"
           >
-            添加
+            {{ $t('text53') }}
           </v-btn>
           <v-btn
             v-if="isEditing"
@@ -168,7 +165,7 @@
             @click="onUpdate"
             color="indigo"
           >
-            更新
+            {{ $t('text54') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -209,14 +206,6 @@ export default {
       focusMapUrl: '',
       focusName: '',
     },
-    rules: {
-      focusName: [
-        (v) => !!v || '必填',
-        (v) => (v && v.length <= 30) || '超过长度限制',
-      ],
-      focusMapUrl: [(v) => !!v || '必选'],
-      focusLocation: [(v) => v != null || '必选'],
-    },
     fileErrorText: '',
     isFileError: false,
     imageFile: null,
@@ -236,18 +225,29 @@ export default {
     },
   },
   computed: {
+
+    rules(){
+      return  {
+        focusName: [
+          (v) => !!v || this.$t('text43'),
+          (v) => (v && v.length <= 30) || this.$t('text56'),
+        ],
+        focusMapUrl: [(v) => !!v || this.$t('text55')],
+        focusLocation: [(v) => v != null || this.$t('text55')],
+      }
+    },
     items() {
       return [
         {
-          text: '首页',
+          text: this.$t('text57'),
           value: 0,
         },
         {
-          text: '市场',
+          text: this.$t('text58'),
           value: 1,
         },
         {
-          text: '转售',
+          text: this.$t('text59'),
           value: 2,
         },
       ]
@@ -255,16 +255,16 @@ export default {
     headers() {
       return [
         {
-          text: '焦点图名称',
+          text: this.$t('text48'),
           align: 'start',
           sortable: false,
           value: 'focusName',
         },
-        { text: '图片', value: 'focusMapUrl', width: '120' },
-        { text: '链接', value: 'focusLink' },
-        { text: '状态', value: 'numState' },
-        { text: '添加时间', value: 'createTime', width: '180' },
-        { text: '操作', value: '_actions', align: 'center' },
+        { text: this.$t('text60'), value: 'focusMapUrl', width: '120' },
+        { text: this.$t('text61'), value: 'focusLink' },
+        { text: this.$t('text62'), value: 'numState' },
+        { text: this.$t('text63'), value: 'createTime', width: '180' },
+        { text: this.$t('text13'), value: '_actions', align: 'center' },
       ]
     },
   },
@@ -297,7 +297,6 @@ export default {
       this.getData()
     }, 300),
     onEdit(rowData) {
-      console.log('打开编辑')
       this.isEditing = true
       this.isShowDialog = true
       getBannerData({}, rowData.id).then((res) => {
@@ -309,7 +308,7 @@ export default {
       updateBanner(this.form).then((res) => {
         this.$store.commit('TOGGLE_SNACKBAR', {
           bool: true,
-          msg: '更新成功',
+          msg: this.$t('text45'),
         })
         this.closeDialog()
         this.getData(1)
@@ -320,7 +319,7 @@ export default {
       let MB = size / (1024 * 1024)
       if (MB > 5) {
         this.isFileError = true
-        this.fileErrorText = '文件大小不能超过5M'
+        this.fileErrorText = this.$t('text64')
         return
       }
       let form = new FormData()
@@ -334,7 +333,7 @@ export default {
       triggerBannerState({}, id).then((res) => {
         this.$store.commit('TOGGLE_SNACKBAR', {
           bool: true,
-          msg: numState === 1 ? '禁用成功' : '启用成功',
+          msg: numState === 1 ? this.$t('text65') :this.$t('text66'),
         })
         this.getData(1)
       })
@@ -348,7 +347,7 @@ export default {
       addBanner(params).then((res) => {
         this.$store.commit('TOGGLE_SNACKBAR', {
           bool: true,
-          msg: '添加成功',
+          msg: this.$t('text67'),
         })
       })
     },
@@ -365,6 +364,9 @@ export default {
       this.isEditing = false
       this.$refs.form.reset()
       this.form.focusMapUrl = ''
+    },
+    showExpandMedia(url) {
+      window.open(url, '_blank')
     },
   },
 }

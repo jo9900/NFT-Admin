@@ -10,7 +10,7 @@
       class="elevation-1"
       disable-sort
       fixed-header
-      :no-data-text="'暂无数据'"
+      :no-data-text="$t('text3')"
       :loading="isLoading"
       @page-count="pageCount = $event"
     >
@@ -45,7 +45,7 @@
       </template>
 
       <template v-slot:item._actions="{ item }">
-        <v-btn text @click="toDetail(item)">查看</v-btn>
+        <v-btn text @click="toDetail(item)">{{ $t('text36') }}</v-btn>
       </template>
     </v-data-table>
     <div class="text-center pt-2">
@@ -80,20 +80,20 @@ export default {
     headers() {
       return [
         {
-          text: '作品名称',
+          text: this.$t('text5'),
           align: 'start',
           sortable: false,
           value: 'goodsName',
         },
-        { text: '作品类型', value: 'goodsType', width: '130' },
-        { text: '作品图像', value: 'goodsUrl' },
-        { text: `售价（${unit}）`, value: 'goodsPrice', align: 'right' },
-        { text: '创作者', value: 'goodsAuthorName', width: '130' },
-        { text: '拥有者', value: 'goodsOwnName', width: '130' },
-        { text: '首次挂售时间', value: 'firstSellTime', width: '180' },
-        { text: '最后成交时间', value: 'lastTransTime', width: '180' },
-        { text: '作品状态', value: 'groundingState' },
-        { text: '操作', value: '_actions', align: 'center' },
+        { text: this.$t('text6'), value: 'goodsType', width: '130' },
+        { text: this.$t('text7'), value: 'goodsUrl' },
+        { text: `${this.$t('text18')}（${unit}）`, value: 'goodsPrice', align: 'right' },
+        { text: this.$t('text20'), value: 'goodsAuthorName', width: '130' },
+        { text: this.$t('text31'), value: 'goodsOwnName', width: '130' },
+        { text: this.$t('text32'), value: 'firstSellTime', width: '180' },
+        { text: this.$t('text33'), value: 'lastTransTime', width: '180' },
+        { text: this.$t('text34'), value: 'groundingState' },
+        { text: this.$t('text13'), value: '_actions', align: 'center' },
       ]
     },
   },

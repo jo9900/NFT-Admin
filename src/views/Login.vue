@@ -3,14 +3,14 @@
     <div class="drop-shadow">
       <div class="glass"></div>
       <span>
-        <span class="title">后台管理面板</span>
+        <span class="title">{{ $t('text1') }}</span>
         <span
           v-ripple
           role="button"
           class="connect-btn"
           @click="onConnectAndLogin"
         >
-          连接钱包
+          {{ $t('text2') }}
         </span>
       </span>
     </div>
