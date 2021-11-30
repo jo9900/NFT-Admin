@@ -5,11 +5,14 @@ export const validatedMediaExt = {
   video: ['mp4', 'webm'],
   sound: ['mp3', 'wav'],
 }
+if (!localStorage.getItem('locale')) {
+  if (navigator.language === 'zh' || navigator.language === 'zh-CN') {
+    window.localStorage.setItem('locale', 'zh')
+  } else {
+    window.localStorage.setItem('locale', 'en')
+  }
+}
 export const currentLocale = localStorage.getItem('locale') || 'en'
-export const VUE_APP_RFC = process.env.VUE_APP_RFC
-export const VUE_APP_MCA = process.env.VUE_APP_MCA
-export const VUE_APP_NCA = process.env.VUE_APP_NCA
-export const VUE_APP_PAYTOKEN = process.env.VUE_APP_PAYTOKEN
 export const mallCode = JSON.parse(localStorage.getItem('uInfo'))?.mallCode || 'firstMall'
 export const mallName = JSON.parse(localStorage.getItem('uInfo'))?.mallName || ''
 export const mallWalletAddress = '111'

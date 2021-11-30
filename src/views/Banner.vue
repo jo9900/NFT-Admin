@@ -8,7 +8,6 @@
           dense
           v-model="selected"
           :items="items"
-          label="所属页面"
           item-text="text"
           item-value="value"
           class="elevation-0"

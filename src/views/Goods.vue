@@ -56,7 +56,6 @@
         :length="pageCount"
       ></v-pagination>
     </div>
-    <!--    <vMedia :mediaUrl="mediaUrl" />-->
   </div>
 </template>
 
