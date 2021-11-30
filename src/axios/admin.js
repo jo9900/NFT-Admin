@@ -61,7 +61,7 @@ nftInstance.interceptors.response.use(
         bool: true,
       })
     }
-    // store.dispatch('logout')
+    store.dispatch('logout')
     return Promise.reject(error)
   }
 )
