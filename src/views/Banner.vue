@@ -210,6 +210,7 @@ export default {
     isFileError: false,
     imageFile: null,
     VUE_APP_WEB_URL: process.env.VUE_APP_WEB_URL,
+    currentId: null
   }),
   watch: {
     imageFile: {
@@ -300,7 +301,6 @@ export default {
       this.isShowDialog = true
       getBannerData({}, rowData.id).then((res) => {
         this.form = res.data
-        delete this.form.id
       })
     },
     onUpdate: debounce(function () {

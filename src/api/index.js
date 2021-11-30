@@ -40,8 +40,8 @@ export const addBanner = (params = {}) => {
   return post(_mallCode + '/focusMap/add', params)
 }
 
-export const updateBanner = (params ={}, id) => {
-  return post(_mallCode + '/focusMap/updateById' + id, params)
+export const updateBanner = (params ={}) => {
+  return post(_mallCode + '/focusMap/updateById', params)
 }
 export const getBannerData = (params ={}, id) => {
   return get(_mallCode + '/focusMap/getById/' + id, params)
