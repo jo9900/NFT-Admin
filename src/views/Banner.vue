@@ -83,7 +83,7 @@
       </div>
     </v-sheet>
 
-    <v-dialog v-model="isShowDialog" persistent max-width="650px">
+    <v-dialog v-model="isShowDialog" persistent width="650px">
       <v-card class="px-8 py-4">
         <v-card-title class="py-8">
           <span class="text-h5">{{
@@ -100,7 +100,7 @@
               counter="30"
               class="mb-4"
             ></v-text-field>
-            <v-row no-gutters>
+            <div>
               <v-file-input
                 accept="image/.jpg, .jpeg, .png, .gif"
                 :label="$t('text49')"
@@ -110,6 +110,8 @@
                 :error-messages="fileErrorText"
                 :error="isFileError"
               ></v-file-input>
+            </div>
+            <div>
               <v-img
                 :src="form.focusMapUrl"
                 :rules="rules.focusMapUrl"
@@ -117,7 +119,7 @@
                 height="100"
                 @click="showExpandMedia(form.focusMapUrl)"
               ></v-img>
-            </v-row>
+            </div>
 
             <v-text-field
               v-model.trim="form.focusLink"
@@ -210,7 +212,7 @@ export default {
     isFileError: false,
     imageFile: null,
     VUE_APP_WEB_URL: process.env.VUE_APP_WEB_URL,
-    currentId: null
+    currentId: null,
   }),
   watch: {
     imageFile: {
