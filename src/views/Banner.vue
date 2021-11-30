@@ -79,6 +79,7 @@
           color="indigo"
           total-visible="8"
           :length="pageCount"
+          @input="onClickPage"
         ></v-pagination>
       </div>
     </v-sheet>
@@ -226,6 +227,14 @@ export default {
         }
       },
     },
+    page:{
+      handler(cur) {
+        console.log( cur );
+        if (cur) {
+          this.getData(cur)
+        }
+      }
+    }
   },
   computed: {
     rules() {
@@ -282,13 +291,16 @@ export default {
       this.isLoading = true
       const params = {
         focusLocation: Number(this.selected),
-        limit: 10,
+        limit: this.itemsPerPage,
         mallCode,
         pageNum,
       }
       getBannerList(params)
         .then((res) => {
           this.list = res.data.list
+          this.$nextTick(()=> {
+            this.pageCount = res.data.pageCount
+          })
         })
         .finally(() => {
           this.isLoading = false
@@ -369,6 +381,9 @@ export default {
     showExpandMedia(url) {
       window.open(url, '_blank')
     },
+    onClickPage(clickedNum) {
+      this.page = clickedNum;
+    }
   },
 }
 </script>

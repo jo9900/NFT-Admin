@@ -54,6 +54,7 @@
         color="indigo"
         total-visible="8"
         :length="pageCount"
+        @input="onClickPage"
       ></v-pagination>
     </div>
   </div>
@@ -100,6 +101,16 @@ export default {
   created() {
     this.init()
   },
+  watch:{
+    page:{
+      handler(cur) {
+        console.log( cur );
+        if (cur) {
+          this.getData(cur)
+        }
+      }
+    }
+  },
   methods: {
     init() {
       this.getData()
@@ -113,7 +124,9 @@ export default {
       getGoodsList(params)
         .then((res) => {
           this.list = res.data.list
-          this.pageCount = res.data.pageCount
+          this.$nextTick(()=> {
+            this.pageCount = res.data.pageCount
+          })
         })
         .finally(() => {
           this.isLoading = false
@@ -122,6 +135,9 @@ export default {
     toDetail(rowData) {
       this.$router.push('/detail/' + rowData.id)
     },
+    onClickPage(clickedNum) {
+      this.page = clickedNum;
+    }
   },
 }
 </script>

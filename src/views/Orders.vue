@@ -50,6 +50,7 @@
         color="indigo"
         total-visible="8"
         :length="pageCount"
+        @input="onClickPage"
       ></v-pagination>
     </div>
   </div>
@@ -95,6 +96,16 @@ export default {
       ]
     },
   },
+  watch:{
+    page:{
+      handler(cur) {
+        console.log( cur );
+        if (cur) {
+          this.getData(cur)
+        }
+      }
+    }
+  },
   methods: {
     init() {
       this.getData()
@@ -109,7 +120,9 @@ export default {
       getOrders(params)
         .then((res) => {
           this.list = res.data.list
-          this.pageCount = res.data.pageCount
+          this.$nextTick(()=> {
+            this.pageCount = res.data.pageCount
+          })
         })
         .finally(() => {
           this.isLoading = false
@@ -118,6 +131,9 @@ export default {
     toScan(rowData) {
       console.log(rowData)
       window.open(scanHref + 'tx/' + rowData.transHash, '_blank')
+    },
+    onClickPage(clickedNum) {
+      this.page = clickedNum;
     }
   },
 }
