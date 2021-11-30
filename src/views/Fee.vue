@@ -59,7 +59,10 @@
 <script>
 // import {validate} from 'trezor-address-validator'
 import { getFee, updateFee } from '../api'
-
+const checkPrice = (price) => {
+  let ret = /^([1-9][0-9]*(\.[0-9]{1,2})?|0\.(?!0+$)[0-9]{1,2})$/
+  return ret.test(price.toString())
+}
 export default {
   name: 'Fee',
   data: () => ({
@@ -71,7 +74,7 @@ export default {
       serviceFee: '',
     },
     rules: {
-      serviceFee: [(v) => !!v || '必填'],
+      serviceFee: [(v) => !!v || '必填', (v)=> checkPrice(v) || '交易服务费必须大于等于0，支持小数点后面2位小数'],
       transWalletAddress: [(v) => !!v || '必填'],
     },
   }),

@@ -4,7 +4,6 @@
       <v-container class="py-0 fill-height">
         <span class="mall-name">{{ mallName }}</span>
         <v-spacer></v-spacer>
-        <v-btn @click="onConnectAndLogin()" v-if="!address">连接钱包</v-btn>
         <div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
