@@ -116,7 +116,7 @@ export default {
           for (let key in this.form) {
             res.push(this.form[key] === this.currentForm[key])
           }
-          if (!res.includes(true)) {// 两个值都改了
+          if (!res.includes(true)) { // 两个值都改了
             this.onSetContract(newFee, newAddress)
             return
           }

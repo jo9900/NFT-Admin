@@ -31,6 +31,10 @@ export const setFeeAndAddress = async (newFee = null, newAddress = null) => {
   await checkProvider()
   const Contract = new window.web3.eth.Contract(abi_AboutFee, VUE_APP_MCA)
   const currentAddress = localStorage.getItem('account')
+
+  console.log('newFee', newFee)
+  console.log('newAddress', newAddress)
+  console.log('currentAddress', currentAddress)
   const setFee = () => {
     return new Promise((resolve, reject) => {
       Contract.methods
