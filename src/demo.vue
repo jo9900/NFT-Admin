@@ -20,6 +20,9 @@ export default {
       },
     }
   },
+  mounted(){
+    console.log( + new Date())
+  },
   methods: {
     test(){
       updateFee(this.form)
