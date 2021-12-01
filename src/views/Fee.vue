@@ -76,7 +76,7 @@ export default {
       serviceFee: '',
     },
     isLoading: false,
-    currentForm: {}
+    currentForm: {},
   }),
   computed: {
     rules() {
@@ -108,8 +108,16 @@ export default {
     },
     updateValidate() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true
-        this.onSetContract()
+        const newFee = BigNumber.from(this.form.serviceFee * 10).toString()
+        const newAddress = this.form.transWalletAddress
+        if (JSON.stringify(this.form) !== JSON.stringify(this.currentForm)) {
+          this.isLoading = true
+          if (this.form.serviceFee !== this.currentForm.serviceFee) {
+            this.onSetContract(newFee)
+          } else {
+            this.onSetContract(null, newAddress)
+          }
+        }
       }
     },
     toHttpUpdate() {
@@ -131,16 +139,14 @@ export default {
     /**
      * 只有市场合约所有者可以调用合约设置交易服务费和收款钱包地址
      */
-    onSetContract() {
-      const newFee = BigNumber.from(this.form.serviceFee * 10).toString()
-      const newAddress = this.form.transWalletAddress
+    onSetContract(newFee, newAddress) {
       setFeeAndAddress(newFee, newAddress).then((res) => {
         console.log('setFeeAndAddress:', res)
-        const isAllSuccess = res.every(el => {
+        const isAllSuccess = res.every((el) => {
           if (el.status === 'rejected') {
             this.isLoading = false
             this.$store.commit('TOGGLE_SNACKBAR', {
-              msg: el.reason?.code === 4001 ? '用户取消了操作' : '设置失败',
+              msg: el.reason?.code === 4001 ? this.$t('text87') : this.$t('text88'),
               bool: true,
             })
             return false
