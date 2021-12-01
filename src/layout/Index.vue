@@ -141,6 +141,18 @@ export default {
       },
       immediate: true,
     },
+    '$route.path': {
+      handler(cur) {
+        if (!cur) return
+        this.linkList.find((el, index)=> {
+          if (el.path === cur) {
+            this.selectedItem = index
+            return el
+          }
+        })
+      },
+      immediate: true
+    }
   },
   methods: {
     toRoute(item, index) {

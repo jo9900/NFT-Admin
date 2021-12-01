@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mallWalletAddress, unit, scanHref } from '../config'
+import { unit, scanHref } from '../config'
 import { getOrders } from '../api'
 import VMedia from '@/components/Media'
 
@@ -115,7 +115,7 @@ export default {
       const params = {
         limit: this.itemsPerPage,
         pageNum: pageNum,
-        mallWalletAddress: mallWalletAddress,
+        mallWalletAddress: this.$store.getters.getAccount,
       }
       getOrders(params)
         .then((res) => {

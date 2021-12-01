@@ -13,7 +13,35 @@ if (!localStorage.getItem('locale')) {
   }
 }
 export const VUE_APP_RFC = process.env.VUE_APP_RFC
+export const VUE_APP_MCA = process.env.VUE_APP_MCA
 export const currentLocale = localStorage.getItem('locale') || 'en'
 export const mallCode = JSON.parse(localStorage.getItem('uInfo'))?.mallCode || 'firstMall'
 export const mallName = JSON.parse(localStorage.getItem('uInfo'))?.mallName || ''
-export const mallWalletAddress = '111'
+export const abi_AboutFee = [ // 交易服务费和其地址
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "newBeneficiary",
+        "type": "address"
+      }
+    ],
+    "name": "setBeneficiary",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "setFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+]

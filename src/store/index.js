@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import router from '../router'
 import web3ModalStore from './modules/web3Modal.js'
 import { userLogin } from '../api'
-import {mallWalletAddress} from "../config";
 
 Vue.use(Vuex)
 
@@ -49,9 +48,7 @@ export default new Vuex.Store({
       dispatch('resetApp')
     },
     async login({ state }) {
-      // const { account } = state.web3Modal
-      // TODO 这里现在是写死的
-      const account = mallWalletAddress
+      const { account } = state.web3Modal
       await userLogin({ walletAddress: account }).then((res) => {
         localStorage.setItem('uInfo', JSON.stringify(res.data))
         localStorage.setItem('uAuthorization', res.data.token)
