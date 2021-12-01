@@ -57,10 +57,12 @@ export const setFeeAndAddress = async (newFee = null, newAddress = null) => {
         .catch(reject)
     })
   }
+  let paramsArr = []
+  newFee && paramsArr.push(setFee())
+  newAddress && paramsArr.push(setAddress())
   return new Promise((resolve) => {
-    Promise.allSettled([newFee && setFee(), newAddress && setAddress()])
-      .then((res) => {
-        resolve(res)
-      })
+    Promise.allSettled(paramsArr).then((res) => {
+      resolve(res)
+    })
   })
 }

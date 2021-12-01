@@ -112,15 +112,15 @@ export default {
         const newAddress = this.form.transWalletAddress
         if (JSON.stringify(this.form) !== JSON.stringify(this.currentForm)) {
           this.isLoading = true
-          const res = []
+          const res = {}
           for (let key in this.form) {
-            res.push(this.form[key] === this.currentForm[key])
+            res[key] = this.form[key] === this.currentForm[key]
           }
-          if (!res.includes(true)) { // 两个值都改了
+          if (!Object.values(res).includes(true)) { // 两个值都改了
             this.onSetContract(newFee, newAddress)
             return
           }
-          if (res[0]) { // 第二个属性的值不一致
+          if (res.serviceFee) { // 费用没变而地址变了
             this.onSetContract(null, newAddress)
           } else {
             this.onSetContract(newFee)
