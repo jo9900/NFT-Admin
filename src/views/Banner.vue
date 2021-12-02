@@ -103,12 +103,15 @@
               class="mb-4"
             ></v-text-field>
             <div>
+              {{ form.focusMapUrl }}
               <v-file-input
+                show-size
                 accept="image/.jpg, .jpeg, .png, .gif"
                 :label="$t('text49')"
                 v-model="imageFile"
                 prepend-icon=""
                 class="mb-4"
+                :rules="rules.imageFile"
                 :error-messages="fileErrorText"
                 :error="isFileError"
               ></v-file-input>
@@ -117,7 +120,6 @@
               <v-img
                 v-if="form.focusMapUrl"
                 :src="form.focusMapUrl"
-                :rules="rules.focusMapUrl"
                 contain
                 height="100"
                 @click="showExpandMedia(form.focusMapUrl)"
@@ -195,7 +197,8 @@ import { debounce } from 'lodash'
 import VMedia from '@/components/Media'
 const checkLink = (link) => {
   if (!link) return true
-  let ret = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?%#[\]@!$&'*+,;=]+$/
+  let ret =
+    /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?%#[\]@!$&'*+,;=]+$/
   return ret.test(link.toString())
 }
 export default {
@@ -227,13 +230,14 @@ export default {
   watch: {
     imageFile: {
       handler(cur) {
+        this.form.focusMapUrl = ''
         if (cur) {
-          this.form.focusMapUrl = ''
           this.isFileError = false
           this.fileErrorText = ''
           // rss
           this.getFileUrl(cur)
         }
+        console.log('this.form', this.form)
       },
     },
     page: {
@@ -251,7 +255,7 @@ export default {
           (v) => !!v || this.$t('text43'),
           (v) => (v && v.length <= 30) || this.$t('text56'),
         ],
-        focusMapUrl: [(v) => !!v || this.$t('text55')],
+        imageFile: [(v) => !v || !this.focusMapUrl || this.$t('text55')],
         focusLink: [(v) => checkLink(v) || this.$t('text89')],
         focusLocation: [(v) => v != null || this.$t('text55')],
       }
@@ -316,8 +320,7 @@ export default {
         })
     },
     onRefresh: debounce(function () {
-      this.page = 1
-      this.getData()
+      this.getData(1)
     }, 300),
     onEdit(rowData) {
       this.isEditing = true
@@ -326,14 +329,16 @@ export default {
         this.form = res.data
       })
     },
-    onUpdate: debounce(function () {
-      updateBanner(this.form).then((res) => {
-        this.$store.commit('TOGGLE_SNACKBAR', {
-          bool: true,
-          msg: this.$t('text45'),
+    onUpdate: debounce(async function () {
+      this.validateAll().then(() => {
+        updateBanner(this.form).then((res) => {
+          this.$store.commit('TOGGLE_SNACKBAR', {
+            bool: true,
+            msg: this.$t('text45'),
+          })
+          this.closeDialog()
+          this.getData(1)
         })
-        this.closeDialog()
-        this.getData(1)
       })
     }, 300),
     getFileUrl(file) {
@@ -377,14 +382,36 @@ export default {
     toOuterPage(rowData) {
       window.open(rowData.focusLink, '_blank')
     },
+    validateAll() {
+      return new Promise((resolve, reject) => {
+        let flag = true
+        if (!this.form.focusMapUrl) {
+          this.isFileError = true
+          this.fileErrorText = this.$t('text55')
+          flag = false
+        } else {
+          this.isFileError = false
+          this.fileErrorText = ''
+        }
+        if (!this.$refs.form.validate()) {
+          flag = false
+        }
+        if (flag) {
+          resolve()
+        } else reject()
+      })
+    },
     onConfirm: debounce(function () {
-      if (!this.$refs.form.validate()) return
-      this.onAdd()
-      this.closeDialog()
+      this.validateAll().then(async () => {
+        await this.onAdd()
+        await this.closeDialog()
+      })
     }, 300),
     closeDialog() {
       this.isShowDialog = false
       this.isEditing = false
+      this.isFileError = false
+      this.fileErrorText = ''
       this.$refs.form.reset()
       this.form.focusMapUrl = ''
     },
