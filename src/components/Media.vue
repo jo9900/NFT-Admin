@@ -80,9 +80,10 @@ export default {
   cursor pointer
 
 .media-wrap
+  padding 4px
   ::v-deep .content
     max-width 100px
-    height 30px
+    height 46px
   ::v-deep .sound .content
     max-width 100px
 

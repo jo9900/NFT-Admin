@@ -59,7 +59,7 @@
               min-height="75vh"
               max-height="85vh"
               rounded="lg"
-              style="overflow: hidden; position: relative"
+              style="overflow: auto; position: relative"
               class="pa-2"
             >
               <router-view />

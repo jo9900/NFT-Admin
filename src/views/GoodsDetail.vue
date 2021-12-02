@@ -20,7 +20,9 @@
       </v-row>
       <v-row>
         <v-col cols="3">{{ $t('text17') }}</v-col>
-        <v-col cols="9">{{ nftData.goodsDes }}</v-col>
+        <v-col cols="9">
+          {{ nftData.goodsDes }}
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="3">{{ $t('text18') }}</v-col>
@@ -117,4 +119,12 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.media-wrap
+  padding 4px
+  ::v-deep .content
+    max-width 100px
+    height 100px
+  ::v-deep .sound .content
+    max-width 100px
+
 </style>
