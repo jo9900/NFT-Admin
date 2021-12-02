@@ -115,7 +115,7 @@ export default {
       const params = {
         limit: this.itemsPerPage,
         pageNum: pageNum,
-        mallWalletAddress: this.$store.getters.getAccount,
+        mallWalletAddress: localStorage.getItem('account'),
       }
       getOrders(params)
         .then((res) => {

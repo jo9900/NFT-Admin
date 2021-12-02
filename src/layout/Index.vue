@@ -133,7 +133,7 @@ export default {
     '$store.state.web3Modal.account': {
       handler(cur) {
         if (cur) {
-          this.address = maskingAddress(this.$store.getters.getAccount, 2)
+          this.address = maskingAddress(localStorage.getItem('account'), 2)
           this.$store.dispatch('initConnect')
         } else {
           this.address = ''

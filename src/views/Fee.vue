@@ -62,7 +62,7 @@ import { getFee, updateFee } from '../api'
 import { setFeeAndAddress } from '../utils'
 import { BigNumber } from 'ethers'
 const checkPrice = (price) => {
-  let ret = /^([1-9][0-9]*(\.[0-9])?|0\.(?!0+$)[0-9])$/
+  let ret = /^(\d|[1-9]\d)(\.\d)?$/
   return ret.test(price.toString())
 }
 export default {
