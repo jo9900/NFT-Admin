@@ -94,6 +94,7 @@
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
+              clearable
               v-model.trim="form.focusName"
               :rules="rules.focusName"
               :label="$t('text48')"
@@ -114,6 +115,7 @@
             </div>
             <div>
               <v-img
+                v-if="form.focusMapUrl"
                 :src="form.focusMapUrl"
                 :rules="rules.focusMapUrl"
                 contain
@@ -121,12 +123,15 @@
                 @click="showExpandMedia(form.focusMapUrl)"
               ></v-img>
             </div>
-
             <v-text-field
+              clearable
               v-model.trim="form.focusLink"
+              :rules="rules.focusLink"
               :label="$t('text50')"
               class="mb-4"
-            ></v-text-field>
+              :hint="$t('text89')"
+            >
+            </v-text-field>
             <v-select
               item-color="indigo"
               v-model="form.focusLocation"
@@ -188,7 +193,11 @@ import { getRssUrl } from '../api/rss'
 import { mallCode } from '../config'
 import { debounce } from 'lodash'
 import VMedia from '@/components/Media'
-
+const checkLink = (link) => {
+  if (!link) return true
+  let ret = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?%#[\]@!$&'*+,;=]+$/
+  return ret.test(link.toString())
+}
 export default {
   name: 'Banner',
   components: { VMedia },
@@ -227,14 +236,13 @@ export default {
         }
       },
     },
-    page:{
+    page: {
       handler(cur) {
-        console.log( cur );
         if (cur) {
           this.getData(cur)
         }
-      }
-    }
+      },
+    },
   },
   computed: {
     rules() {
@@ -244,6 +252,7 @@ export default {
           (v) => (v && v.length <= 30) || this.$t('text56'),
         ],
         focusMapUrl: [(v) => !!v || this.$t('text55')],
+        focusLink: [(v) => checkLink(v) || this.$t('text89')],
         focusLocation: [(v) => v != null || this.$t('text55')],
       }
     },
@@ -298,7 +307,7 @@ export default {
       getBannerList(params)
         .then((res) => {
           this.list = res.data.list
-          this.$nextTick(()=> {
+          this.$nextTick(() => {
             this.pageCount = res.data.pageCount
           })
         })
@@ -383,8 +392,8 @@ export default {
       window.open(url, '_blank')
     },
     onClickPage(clickedNum) {
-      this.page = clickedNum;
-    }
+      this.page = clickedNum
+    },
   },
 }
 </script>
