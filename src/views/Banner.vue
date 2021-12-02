@@ -362,6 +362,7 @@ export default {
           bool: true,
           msg: this.$t('text67'),
         })
+        this.getData(1)
       })
     },
     toOuterPage(rowData) {
