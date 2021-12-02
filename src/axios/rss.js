@@ -18,7 +18,7 @@ const formatError = (code) => {
 }
 const instance = axios.create({
   baseURL: '',
-  timeout: 5000,
+  timeout: 30 * 1000,
   headers: { 'Content-Type': 'multipart/form-data' },
 })
 instance.interceptors.request.use(

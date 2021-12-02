@@ -15,7 +15,7 @@ const formatError = (code) => {
 }
 const nftInstance = axios.create({
   baseURL: process.env.VUE_APP_API,
-  timeout: 5000,
+  timeout: 10 * 1000,
 })
 nftInstance.interceptors.request.use(
   (config) => {
