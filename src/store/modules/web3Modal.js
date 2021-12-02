@@ -6,6 +6,10 @@ import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 const VUE_APP_CHAIN_ID = process.env.VUE_APP_CHAIN_ID
 const VUE_APP_RFC = process.env.VUE_APP_RFC
+const VUE_APP_CHAIN_NAME = process.env.VUE_APP_CHAIN_NAME
+const VUE_APP_CURRENCY_NAME = process.env.VUE_APP_CURRENCY_NAME
+const VUE_APP_TEST_SCAN = process.env.VUE_APP_TEST_SCAN
+const VUE_APP_CURRENCY_SYMBOL = process.env.VUE_APP_CURRENCY_SYMBOL
 const web3ModalStore = {
   state: {
     web3Modal: null,
@@ -102,14 +106,14 @@ const web3ModalStore = {
               let params = [
                 {
                   chainId: chainId,
-                  chainName: 'Binance Smart Chain Testnet',
-                  rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+                  chainName: VUE_APP_CHAIN_NAME,
+                  rpcUrls: [VUE_APP_RFC],
                   nativeCurrency: {
-                    name: 'tBNB',
-                    symbol: 'tBNB',
+                    name: VUE_APP_CURRENCY_NAME,
+                    symbol: VUE_APP_CURRENCY_SYMBOL,
                     decimals: 18,
                   },
-                  blockExplorerUrls: ['https://testnet.bscscan.com'],
+                  blockExplorerUrls: [VUE_APP_TEST_SCAN],
                 },
               ]
               window.ethereum.request({ method, params }, (err, result) => {
