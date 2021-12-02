@@ -103,7 +103,6 @@
               class="mb-4"
             ></v-text-field>
             <div>
-              {{ form.focusMapUrl }}
               <v-file-input
                 show-size
                 accept="image/.jpg, .jpeg, .png, .gif"
